@@ -1,135 +1,99 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import BurgerButton from "./HeaderComponents/BurgerButton";
-import {
-  Container,
-  Link,
-  Hidden,
-  useMediaQuery,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
-import { color, motion } from "motion/react";
-import {
-  links,
-  headerLinkStyle,
-  renderElementAnimation,
-} from "./constants/constants";
-
-const MLink = motion.create(Link);
+import { duration, Link } from "@mui/material";
+import { renderElementAnimation } from "./constants/constants";
+import { directLinkStyle, links } from "../constants/constants";
+import { motion } from "motion/react";
 
 export default function Header() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  const isTable = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const [isOpen, setIsOpen] = useState(false);
+  const isMobile = window.innerWidth <= 1024;
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
   return (
     <motion.header
       className={styles.header}
-      initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
+      initial="hidden"
     >
-      <Container
-        sx={{
-          display: "flex",
-          justifyContent: "end",
-          alignItems: "center",
-          gridGap: { xs: "15px", sm: "35px", md: "20px", lg: "40px" },
-        }}
-      >
-        <Hidden smDown>
-          <Hidden mdDown>
-            <nav className={styles.header_nav}>
-              {links.map((link, index) => (
-                <MLink
-                  key={link.label}
-                  href={link.href}
-                  sx={headerLinkStyle}
-                  variants={renderElementAnimation}
-                  custom={index + 1}
-                >
-                  {link.label}
-                </MLink>
-              ))}
-            </nav>
-          </Hidden>
-          <motion.form
-            onSubmit={() => {}}
-            className={styles.search_form}
-            variants={renderElementAnimation}
-            custom={isTable ? 1 : 5}
-          >
-            <button
-              type="submit"
-              className={styles.search_form__button}
-            ></button>
-            <input
-              type="text"
-              className={styles.search_form__input}
-              placeholder="Поиск"
-            />
-          </motion.form>
+      <div className="container">
+        <div className={styles.header__wrapper}>
+          <nav className={styles.nav}>
+            {links.map((link, index) => (
+              <MLink
+                key={index}
+                href={link.href}
+                sx={directLinkStyle}
+                custom={index + 1}
+                variants={renderElementAnimation}
+              >
+                {link.label}
+              </MLink>
+            ))}
+          </nav>
 
-          <MLink
-            href="/"
-            variants={renderElementAnimation}
-            custom={isTable ? 2 : 6}
-            sx={{
-              width: "40px",
-              height: "40px",
-              backgroundImage: "url(/icons/userIcon.svg)",
-            }}
-          ></MLink>
-        </Hidden>
+          <div className={styles.tablet_group}>
+            <motion.form
+              onSubmit={() => {}}
+              className={styles.search_form}
+              custom={5}
+              variants={renderElementAnimation}
+            >
+              <button
+                type="submit"
+                className={styles.search_form__button}
+              ></button>
+              <input
+                type="text"
+                placeholder="Поиск"
+                className={styles.search_form__input}
+              />
+            </motion.form>
+            <MLink
+              href="/"
+              sx={{
+                width: "40px",
+                height: "40px",
+                backgroundImage: "url(/icons/userIcon.svg)",
+              }}
+              custom={6}
+              variants={renderElementAnimation}
+            ></MLink>
+          </div>
 
-        <BurgerButton
-          isOpen={isOpen}
-          toggleMenu={toggleMenu}
-          custom={() => {
-            if (isMobile) {
-              return 1;
-            } else if (isTable) {
-              return 3;
-            } else {
-              return 7;
-            }
-          }}
-        />
-
-        <Drawer
-          anchor="right"
-          open={isOpen}
-          onClose={toggleMenu}
-          sx={{ justifyContent: "center" }}
-        >
-          <motion.div
-            className={styles.burger_menu}
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -100, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <List>
-              {links.map((link, index) => (
-                <motion.div key={link.label}>
-                  <ListItem button onClick={toggleMenu}>
-                    <ListItemText>
-                      <Link href={link.href} sx={{ color: "black" }}>
-                        {link.label}
-                      </Link>
-                    </ListItemText>
-                  </ListItem>
+          {isMobile && (
+            <>
+              <BurgerButton isOpen={isOpen} toggleMenu={toggleMenu} />
+              <motion.div
+                className={styles.burger}
+                initial={{ clipPath: "circle(0% at 100% 0%)" }}
+                animate={
+                  isOpen
+                    ? { clipPath: "circle(150% at 100% 0%)" }
+                    : { clipPath: "circle(0% at 100% 0%)" }
+                }
+                transition={{
+                  duration: 0.35,
+                  ease: "easeInOut",
+                }}
+                onClick={toggleMenu}
+              >
+                <motion.div className={styles.burger__menu}>
+                  {links.map((link, index) => (
+                    <Link key={index} href={link.href}>
+                      {link.label}
+                    </Link>
+                  ))}
                 </motion.div>
-              ))}
-            </List>
-          </motion.div>
-        </Drawer>
-      </Container>
+              </motion.div>
+            </>
+          )}
+        </div>
+      </div>
     </motion.header>
   );
 }
+
+const MLink = motion.create(Link);

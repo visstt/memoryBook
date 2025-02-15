@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   display: none;
+  z-index: 2;
 }
 .burger_btn span {
   content: "";
@@ -21,7 +22,7 @@
 span.active {
   background-color: #000;
 }
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .burger_btn {
     display: flex;
   }

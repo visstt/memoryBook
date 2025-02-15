@@ -1,7 +1,10 @@
 import React from "react";
 import styles from "./HomeLayout.module.css";
 import CountBox from "./HomeComponents/CountBox";
-import { figuresAndFacts } from "./constants/constants";
+import { figuresAndFacts, historyInfo } from "./constants/constants";
+import HistoryCard from "./HomeComponents/HistoryCard/HistoryCard";
+import { motion } from "motion/react";
+import { buttonAnimation } from "../../global/constants/constants";
 
 export default function HomeLayout() {
   return (
@@ -15,7 +18,12 @@ export default function HomeLayout() {
             <p className={styles.hero__subtitle}>
               Сохрани памяти о героях, отдавших жизнь за <br /> Родину и Мир
             </p>
-            <button className="button button__default">Найти героя</button>
+            <motion.button
+              className="button button__default"
+              whileTap={buttonAnimation.whileTap}
+            >
+              Найти героя
+            </motion.button>
           </div>
         </div>
       </section>
@@ -30,7 +38,12 @@ export default function HomeLayout() {
                 подвиги живут в наших сердцах. Эта книга создана, чтобы память о
                 них осталась навсегда
               </p>
-              <button className="button button__default">Подробнее</button>
+              <motion.button
+                className="button button__default"
+                whileTap={buttonAnimation.whileTap}
+              >
+                Подробнее
+              </motion.button>
             </div>
           </div>
         </div>
@@ -60,10 +73,21 @@ export default function HomeLayout() {
           <div className={styles.history__wrapper}>
             <span className={styles.span}>
               <h2 className={styles.history__title}>Истории героев</h2>{" "}
-              <a href="#" className="link link__default">
+              <a href="#" className={`link link__default ${styles.iconly}`}>
                 Подробнее
               </a>
             </span>
+            <div className={styles.history__table}>
+              {historyInfo.map(
+                ({ imagePath, fullName, description }, index) => (
+                  <HistoryCard
+                    imagePath={imagePath}
+                    full_name={fullName}
+                    description={description}
+                  />
+                )
+              )}
+            </div>
           </div>
         </div>
       </section>

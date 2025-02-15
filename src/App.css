@@ -7,11 +7,16 @@
 .button.button__default {
   padding: 20px 60px;
   font-size: 1em;
+  font-weight: 600;
+  border: none;
   color: #fff;
   background-color: #e01d04;
-  border: none;
+  transition: background 0.15s ease-in-out;
 }
-.link.link__default{
+.button.button_default:hover {
+  background-color: #c91a03;
+}
+.link.link_default {
   color: #e01d04;
   font-weight: 500;
 }

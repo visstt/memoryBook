@@ -1,7 +1,7 @@
 // Data
 export const links = [
   { href: "/", label: "О проекте" },
-  { href: "/", label: "Книга памяти" },
+  { href: "/book", label: "Книга памяти" },
   { href: "/", label: "Интерактивная карта" },
   { href: "/", label: "Контакты" },
 ];

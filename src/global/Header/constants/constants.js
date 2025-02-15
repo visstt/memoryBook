@@ -1,3 +1,19 @@
+// Data
+export const links = [
+  { href: "/", label: "О проекте" },
+  { href: "/book", label: "Книга памяти" },
+  { href: "/", label: "Интерактивная карта" },
+  { href: "/", label: "Контакты" },
+];
+
+// Styles
+export const headerLinkStyle = {
+  color: "#ccc",
+  textDecoration: "none",
+  transition: ".2s color ease-in-out",
+  "&:hover": { color: "white" },
+};
+
 // Animations
 export const renderElementAnimation = {
   hidden: {

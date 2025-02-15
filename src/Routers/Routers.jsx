@@ -7,6 +7,7 @@ import Login from "../Pages/Auth/Login";
 import ProfileLayout from "../Pages/Profile/ProfileLayout";
 import Page from "../Pages/page/Page";
 import Map from "../Pages/Map/Map";
+import AddSoldier from "../Pages/Admin/AddsSoldier/AddSoldier";
 
 // const UsersRoute = ({ children }) => {
 //   const isLoggedIn = Cookies.get("logged_in") === "true";
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
   {
     path: "/map",
     element: <Map />,
+  },
+  {
+    path: "/addsoldier",
+    element: <AddSoldier />,
   },
   //   {
   //     path: "/catalog",

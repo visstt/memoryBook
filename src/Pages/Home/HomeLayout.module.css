@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+
+/* Hero-section */
+
+.hero {
+  margin-top: -72px;
+  background-image: url("/public/hero.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.hero__wrapper {
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+.hero__title {
+  font-size: 6rem;
+  margin-bottom: 2.25rem;
+  font-family: "Oswald", serif;
+  line-height: 96px;
+}
+.hero__subtitle {
+  font-size: 2.25rem;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+
+/* About-section */
+.about {
+  padding: 75px 0;
+  background-color: #fff;
+}
+.about__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-gap: 100px;
+}
+.about__info {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 35px;
+  align-items: center;
+  text-align: center;
+}
+.about__title {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+.about__subtitle {
+  font-size: 1.25rem;
+}
+
+/* Figures-section */
+.figures {
+  background-color: #fff;
+}
+.figures__wrapper {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 30px;
+}
+.figures__title,
+.history__title {
+  font-size: 3rem;
+}
+.count_box__wrapper {
+  display: flex;
+  align-items: center;
+  grid-gap: 20px;
+  padding-bottom: 80px;
+  margin-bottom: 80px;
+  border-bottom: 7px solid #e8e8e8;
+}
+
+/* History-section */
+.history__wrapper {
+  padding: 65px 0;
+}
+.span {
+  display: flex;
+  align-items: end;
+  grid-gap: 20px;
+}

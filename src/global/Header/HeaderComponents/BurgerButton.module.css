@@ -1,0 +1,28 @@
+.burger_btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  position: relative;
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+.burger_btn span {
+  content: "";
+  height: 3px;
+  width: 35px;
+  position: absolute;
+  background-color: #ccc;
+  border-radius: 15px;
+}
+span.active {
+  background-color: #000;
+}
+@media (max-width: 900px) {
+  .burger_btn {
+    display: flex;
+  }
+}

@@ -1,0 +1,22 @@
+.box {
+  width: 315px;
+  aspect-ratio: 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 10px;
+}
+.count {
+  color: #e01d04;
+  font-size: 80px;
+  font-weight: bold;
+}
+.descript {
+  color: #fff;
+  font-size: 24px;
+}

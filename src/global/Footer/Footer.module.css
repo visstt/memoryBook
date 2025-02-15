@@ -1,0 +1,43 @@
+.footer {
+  background-color: #10192a;
+  padding: 40px 0;
+}
+.footer__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  grid-gap: 20px;
+}
+.nav__divider {
+  content: "";
+  background-color: #e01d04;
+  height: 30px;
+  width: 2px;
+}
+.network {
+  display: flex;
+  align-items: center;
+  grid-gap: 35px;
+}
+.network_icon {
+  width: 36px;
+  aspect-ratio: 1;
+}
+@media (max-width: 1024px) {
+  .footer__wrapper {
+    flex-direction: column-reverse;
+    grid-gap: 46px;
+  }
+  .nav {
+    flex-direction: column;
+    text-align: center;
+  }
+  .nav__divider {
+    height: 2px;
+    width: 30%;
+  }
+}

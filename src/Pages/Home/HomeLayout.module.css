@@ -80,9 +80,25 @@
 /* History-section */
 .history__wrapper {
   padding: 65px 0;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 35px;
 }
 .span {
   display: flex;
-  align-items: end;
+  align-items: center;
+  grid-gap: 20px;
+}
+.iconly {
+  display: flex;
+  align-items: center;
+  grid-gap: 5px;
+}
+.iconly::before {
+  content: url("/icons/goTo.svg");
+}
+.history__table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
 }

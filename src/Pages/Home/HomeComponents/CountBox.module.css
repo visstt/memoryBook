@@ -1,6 +1,8 @@
 .box {
-  width: 315px;
+  min-width: 290px;
+  width: 100%;
   aspect-ratio: 1;
+  scroll-snap-align: start;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

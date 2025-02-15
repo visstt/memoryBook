@@ -15,8 +15,8 @@ export default function Footer() {
       <div className="container">
         <div className={styles.footer__wrapper}>
           <div className={styles.network}>
-            {networks.map(({ href, icon }) => (
-              <a href={href}>
+            {networks.map(({ href, icon }, index) => (
+              <a href={href} key={index}>
                 <img
                   src={icon}
                   alt="image"

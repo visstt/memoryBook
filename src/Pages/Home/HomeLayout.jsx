@@ -12,12 +12,14 @@ export default function HomeLayout() {
       <section className={styles.hero}>
         <div className="container">
           <div className={styles.hero__wrapper}>
-            <h1 className={styles.hero__title}>
-              Книга Памяти <br /> Оренбургской области
-            </h1>
-            <p className={styles.hero__subtitle}>
-              Сохрани памяти о героях, отдавших жизнь за <br /> Родину и Мир
-            </p>
+            <div className={styles.hero__wrapper_text}>
+              <h1 className={styles.hero__title}>
+                Книга Памяти <br /> Оренбургской области
+              </h1>
+              <p className={styles.hero__subtitle}>
+                Сохрани памяти о героях, отдавших жизнь за <br /> Родину и Мир
+              </p>
+            </div>
             <motion.button
               className="button button__default"
               whileTap={buttonAnimation.whileTap}
@@ -30,7 +32,7 @@ export default function HomeLayout() {
       <section className={styles.about}>
         <div className="container">
           <div className={styles.about__wrapper}>
-            <img src="/Group 53.png" alt="" />
+            <img src="/Group 53.png" alt="" className={styles.about__image} />
             <div className={styles.about__info}>
               <h2 className={styles.about__title}>О проекте</h2>
               <p className={styles.about__subtitle}>
@@ -81,6 +83,7 @@ export default function HomeLayout() {
               {historyInfo.map(
                 ({ imagePath, fullName, description }, index) => (
                   <HistoryCard
+                    key={index}
                     imagePath={imagePath}
                     full_name={fullName}
                     description={description}

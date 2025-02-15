@@ -3,10 +3,10 @@
 /* Hero-section */
 
 .hero {
-  height: calc(100vh - 72px);
+  height: 100vh;
   background-image: url("/public/Rectangle\ 1.png");
   background-repeat: no-repeat;
-  background-size: 101%;
+  background-size: cover;
   background-position: 50% -10px;
 }
 .hero__wrapper {
@@ -18,13 +18,13 @@
   align-items: start;
 }
 .hero__title {
-  font-size: 6rem;
-  margin-bottom: 2.25rem;
+  font-size: clamp(36px, 7.5vw, 96px);
+  line-height: clamp(36px, 7.5vw, 96px);
+  margin-bottom: 36px;
   font-family: "Oswald", serif;
-  line-height: 96px;
 }
 .hero__subtitle {
-  font-size: 2.25rem;
+  font-size: clamp(16px, 2.5vw, 36px);
   font-weight: 500;
   margin-bottom: 40px;
 }
@@ -40,6 +40,9 @@
   align-items: center;
   grid-gap: 100px;
 }
+.about__image {
+  width: 100%;
+}
 .about__info {
   display: flex;
   flex-direction: column;
@@ -48,11 +51,11 @@
   text-align: center;
 }
 .about__title {
-  font-size: 3rem;
+  font-size: clamp(24px, 3.5vw, 48px);
   margin-bottom: 15px;
 }
 .about__subtitle {
-  font-size: 1.25rem;
+  font-size: clamp(15px, 2vw, 20px);
 }
 
 /* Figures-section */
@@ -66,12 +69,15 @@
 }
 .figures__title,
 .history__title {
-  font-size: 3rem;
+  font-size: clamp(24px, 3.5vw, 48px);
 }
 .count_box__wrapper {
+  width: 100%;
   display: flex;
   align-items: center;
-  grid-gap: 20px;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   padding-bottom: 80px;
   margin-bottom: 80px;
   border-bottom: 7px solid #e8e8e8;
@@ -101,4 +107,34 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
+}
+@media (max-width: 1024px) {
+  .history__table {
+    grid-template-columns: 1fr;
+  }
+  .about__wrapper {
+    flex-direction: column-reverse;
+    grid-gap: 50px;
+  }
+  .about__title {
+    margin: 0;
+  }
+  .about__subtitle {
+    grid-gap: 25px;
+  }
+}
+@media (max-width: 768px) {
+  .hero__wrapper {
+    justify-content: space-around;
+    align-items: center;
+  }
+  .hero__wrapper_text {
+    width: 100%;
+  }
+}
+@media (max-width: 375px) {
+  .span {
+    flex-direction: column;
+    grid-gap: 10px;
+  }
 }

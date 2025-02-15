@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: end;
+  grid-gap: 10px;
 }
 .wrapper {
   display: flex;
@@ -15,8 +16,27 @@
   grid-gap: 8px;
 }
 .full_name {
-  font-size: 2rem;
+  font-size: clamp(24px, 3vw, 32px);
 }
 .description {
+  font-size: clamp(15px, 2.5vw, 16px);
   color: #737373;
+}
+@media (max-width: 768px) {
+  .card_container {
+    align-items: center;
+    grid-gap: 15px;
+  }
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .wrapper__info {
+    text-align: left;
+    grid-gap: 20px;
+  }
+  .wrapper img {
+    width: 50%;
+  }
 }

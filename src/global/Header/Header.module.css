@@ -45,14 +45,24 @@
   align-items: center;
   grid-gap: 40px;
 }
-.burger_menu {
+.burger {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100px;
-  background: #000;
-  opacity: 50%;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: end;
+  background: #000000a0;
+}
+.burger__menu {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 45px;
+  padding: 70px 45px;
+  box-sizing: border-box;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  height: 100%;
+  width: 70%;
+  background-color: white;
   z-index: 1;
 }
 @media (max-width: 1024px) {
@@ -67,5 +77,10 @@
 @media (max-width: 500px) {
   .tablet_group {
     display: none;
+  }
+}
+@media (max-width: 375px) {
+  .burger__menu {
+    width: 100%;
   }
 }

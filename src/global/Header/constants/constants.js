@@ -1,15 +1,13 @@
-
-
 // Animations
 export const renderElementAnimation = {
   hidden: {
     opacity: 0,
-    y: 10,
+    y: -10,
   },
   visible: (custom) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.25, delay: custom * 0.15, type: "spring" },
+    transition: { duration: 0.3, delay: custom * 0.15, type: "spring" },
   }),
 };
 

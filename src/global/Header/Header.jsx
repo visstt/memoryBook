@@ -1,40 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import BurgerButton from "./HeaderComponents/BurgerButton";
-import { Link } from "@mui/material";
+import { duration, Link } from "@mui/material";
 import { renderElementAnimation } from "./constants/constants";
 import { directLinkStyle, links } from "../constants/constants";
 import { motion } from "motion/react";
 
-const animate = {
-  hidden: {
-    x: "100%",
-  },
-  visible: {
-    x: 0,
-  },
-};
-
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = window.innerWidth === 1024;
+  const isMobile = window.innerWidth <= 1024;
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
   return (
-    <header className={styles.header}>
+    <motion.header
+      className={styles.header}
+      whileInView="visible"
+      initial="hidden"
+    >
       <div className="container">
         <div className={styles.header__wrapper}>
           <nav className={styles.nav}>
             {links.map((link, index) => (
-              <Link key={index} href={link.href} sx={directLinkStyle}>
+              <MLink
+                key={index}
+                href={link.href}
+                sx={directLinkStyle}
+                custom={index + 1}
+                variants={renderElementAnimation}
+              >
                 {link.label}
-              </Link>
+              </MLink>
             ))}
           </nav>
 
           <div className={styles.tablet_group}>
-            <form onSubmit={() => {}} className={styles.search_form}>
+            <motion.form
+              onSubmit={() => {}}
+              className={styles.search_form}
+              custom={5}
+              variants={renderElementAnimation}
+            >
               <button
                 type="submit"
                 className={styles.search_form__button}
@@ -44,22 +50,50 @@ export default function Header() {
                 placeholder="Поиск"
                 className={styles.search_form__input}
               />
-            </form>
-            <Link
+            </motion.form>
+            <MLink
               href="/"
               sx={{
                 width: "40px",
                 height: "40px",
                 backgroundImage: "url(/icons/userIcon.svg)",
               }}
-            ></Link>
+              custom={6}
+              variants={renderElementAnimation}
+            ></MLink>
           </div>
 
-          <BurgerButton isOpen={isOpen} toggleMenu={toggleMenu} />
-
-          <div className={styles.burger_menu} animate={isOpen ? " " : ""}></div>
+          {isMobile && (
+            <>
+              <BurgerButton isOpen={isOpen} toggleMenu={toggleMenu} />
+              <motion.div
+                className={styles.burger}
+                initial={{ clipPath: "circle(0% at 100% 0%)" }}
+                animate={
+                  isOpen
+                    ? { clipPath: "circle(150% at 100% 0%)" }
+                    : { clipPath: "circle(0% at 100% 0%)" }
+                }
+                transition={{
+                  duration: 0.35,
+                  ease: "easeInOut",
+                }}
+                onClick={toggleMenu}
+              >
+                <motion.div className={styles.burger__menu}>
+                  {links.map((link, index) => (
+                    <Link key={index} href={link.href}>
+                      {link.label}
+                    </Link>
+                  ))}
+                </motion.div>
+              </motion.div>
+            </>
+          )}
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }
+
+const MLink = motion.create(Link);

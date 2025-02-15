@@ -1,6 +1,5 @@
 .header {
-  background-color: #1c1c1c;
-  opacity: 90%;
+  background-color: #1c1c1ce1;
   padding: 13px 0;
   overflow: hidden;
 }
@@ -64,6 +63,7 @@
   width: 70%;
   background-color: white;
   z-index: 1;
+  opacity: 1;
 }
 @media (max-width: 1024px) {
   .nav {

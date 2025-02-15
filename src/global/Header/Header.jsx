@@ -17,6 +17,7 @@ export default function Header() {
       className={styles.header}
       whileInView="visible"
       initial="hidden"
+      viewport={{ once: true }}
     >
       <div className="container">
         <div className={styles.header__wrapper}>

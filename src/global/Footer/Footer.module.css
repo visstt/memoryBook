@@ -23,7 +23,7 @@
   align-items: center;
   grid-gap: 35px;
 }
-.network_icon {
+.network__icon {
   width: 36px;
   aspect-ratio: 1;
 }

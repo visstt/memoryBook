@@ -3,11 +3,11 @@
 /* Hero-section */
 
 .hero {
-  margin-top: -72px;
-  background-image: url("/public/hero.png");
+  height: calc(100vh - 72px);
+  background-image: url("/public/Rectangle\ 1.png");
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-size: 101%;
+  background-position: 50% -10px;
 }
 .hero__wrapper {
   color: #fff;

@@ -11,8 +11,8 @@ function App() {
     <>
       <Header />
       {/* <ToastContainer /> */}
-      {/* <RouterProvider router={router} /> */}
-      {/* <Footer /> */}
+      <RouterProvider router={router} />
+      <Footer />
     </>
   );
 }

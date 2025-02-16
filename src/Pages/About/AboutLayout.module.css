@@ -1,0 +1,135 @@
+/* Hero-section */
+.hero {
+  height: 100vh;
+  background-image: url("/public/about.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% -10px;
+}
+.hero__wrapper {
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+.hero__wrapper_text {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 40px;
+}
+.hero__title {
+  max-width: 761px;
+  font-size: clamp(32px, 7.5vw, 48px);
+
+  font-family: "Oswald", serif;
+}
+.hero__subtitle {
+  font-size: clamp(16px, 2.5vw, 20px);
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+
+/* Data-section */
+.data,
+.sponsor {
+  padding: 70px 0;
+}
+.data__wrapper {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 30px;
+}
+.data__title {
+  text-align: center;
+  font-size: clamp(24px, 3.5vw, 48px);
+}
+.box__wrapper,
+.logo_wrapper {
+  width: 100%;
+  display: flex;
+  grid-gap: 15px;
+  align-items: center;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+.logo_wrapper {
+  grid-gap: 62px;
+}
+.box {
+  padding: 52px;
+  min-width: 300px;
+  width: 100%;
+  aspect-ratio: 1;
+  font-size: clamp(16px, 2.5vw, 32px);
+  scroll-snap-align: start;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+}
+
+/* About-section */
+.about {
+  padding: 75px 0;
+  background-color: #fff;
+}
+.about__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-gap: 100px;
+}
+.about__image {
+  width: 100%;
+}
+.about__info {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 35px;
+  align-items: center;
+  text-align: center;
+}
+.about__title {
+  font-size: clamp(24px, 3.5vw, 48px);
+  margin-bottom: 15px;
+}
+.about__subtitle {
+  font-size: clamp(15px, 2vw, 20px);
+}
+.sponsor__wrapper {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 50px;
+}
+.sponsor__title {
+  font-size: clamp(24px, 3.5vw, 48px);
+}
+.logo {
+  width: 100%;
+  scroll-snap-align: start;
+}
+@media (max-width: 1024px) {
+  .box {
+    padding: 26px;
+    min-width: 220px;
+  }
+  .about__wrapper {
+    flex-direction: column-reverse;
+    grid-gap: 50px;
+  }
+  .about__title {
+    margin: 0;
+  }
+  .about__subtitle {
+    grid-gap: 25px;
+  }
+}

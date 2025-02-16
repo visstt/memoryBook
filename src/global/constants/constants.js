@@ -7,7 +7,7 @@ export const links = [
   { href: "/", label: "О проекте" },
   { href: "/book", label: "Книга памяти" },
   { href: "/map", label: "Интерактивная карта" },
-  { href: "/", label: "Контакты" },
+  { href: "/about", label: "Контакты" },
 ];
 
 export const networks = [

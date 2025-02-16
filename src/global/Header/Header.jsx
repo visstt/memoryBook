@@ -22,17 +22,34 @@ export default function Header() {
       <div className="container">
         <div className={styles.header__wrapper}>
           <nav className={styles.nav}>
-            {links.map((link, index) => (
-              <MLink
-                key={index}
-                href={link.href}
-                sx={directLinkStyle}
-                custom={index + 1}
-                variants={renderElementAnimation}
-              >
-                {link.label}
-              </MLink>
-            ))}
+            <MLink
+              href="/"
+              sx={directLinkStyle}
+              variants={renderElementAnimation}
+            >
+              О проекте
+            </MLink>
+            <MLink
+              href="/book"
+              sx={directLinkStyle}
+              variants={renderElementAnimation}
+            >
+              Книга памяти
+            </MLink>
+            <MLink
+              href="/map"
+              sx={directLinkStyle}
+              variants={renderElementAnimation}
+            >
+              Интерактивная карта
+            </MLink>
+            <MLink
+              href="/"
+              sx={directLinkStyle}
+              variants={renderElementAnimation}
+            >
+              Контакты
+            </MLink>
           </nav>
 
           <div className={styles.tablet_group}>
@@ -53,7 +70,7 @@ export default function Header() {
               />
             </motion.form>
             <MLink
-              href="/"
+              href="/login"
               sx={{
                 width: "40px",
                 height: "40px",

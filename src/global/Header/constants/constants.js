@@ -2,7 +2,7 @@
 export const links = [
   { href: "/", label: "О проекте" },
   { href: "/book", label: "Книга памяти" },
-  { href: "/", label: "Интерактивная карта" },
+  { href: "/map", label: "Интерактивная карта" },
   { href: "/", label: "Контакты" },
 ];
 

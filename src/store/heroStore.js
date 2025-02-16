@@ -27,6 +27,22 @@ const useHeroStore = create((set, get) => ({
       );
     }
   },
+  addHeroMyApi: async (formData) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/hero/addPerson`,
+        {
+          formData,
+        }
+      );
+      console.log("Успешное добавление солдата:", response.data);
+    } catch (error) {
+      console.log(
+        "Ошибка добавления солдата:",
+        error.response?.data || error.message
+      );
+    }
+  },
   filters: [],
   getFilter: async () => {
     try {

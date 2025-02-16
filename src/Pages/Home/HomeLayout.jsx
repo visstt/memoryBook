@@ -9,35 +9,59 @@ import {
   sliderImages,
 } from "../../global/constants/constants";
 import Slider from "../../global/Slider/Slider";
+import { delay } from "motion";
 
 export default function HomeLayout() {
   return (
     <>
-      <section className={styles.hero}>
+      <motion.section
+        className={styles.hero}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <div className="container">
           <div className={styles.hero__wrapper}>
             <div className={styles.hero__wrapper_text}>
-              <h1 className={styles.hero__title}>
+              <motion.h1
+                className={styles.hero__title}
+                variants={heroAnimation}
+                custom={1}
+              >
                 Книга Памяти <br /> Оренбургской области
-              </h1>
-              <p className={styles.hero__subtitle}>
+              </motion.h1>
+              <motion.p
+                className={styles.hero__subtitle}
+                variants={heroAnimation}
+                custom={2}
+              >
                 Сохрани памяти о героях, отдавших жизнь за <br /> Родину и Мир
-              </p>
+              </motion.p>
             </div>
             <motion.button
               className="button button__default"
               whileTap={buttonAnimation.whileTap}
+              variants={heroAnimation}
+              custom={3}
             >
               Найти героя
             </motion.button>
           </div>
         </div>
-      </section>
-      <section className={styles.about}>
+      </motion.section>
+      <motion.section
+        className={styles.about}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.7 }}
+      >
         <div className="container">
           <div className={styles.about__wrapper}>
             <Slider images={sliderImages} />
-            <div className={styles.about__info}>
+            <motion.div
+              className={styles.about__info}
+              variants={aboutAnimation}
+            >
               <h2 className={styles.about__title}>О проекте</h2>
               <p className={styles.about__subtitle}>
                 Тысячи солдат Оренбургской области не вернулись с войны. Их
@@ -50,11 +74,17 @@ export default function HomeLayout() {
               >
                 Подробнее
               </motion.button>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
-      <section className={styles.figures}>
+      </motion.section>
+      <motion.section
+        className={styles.figures}
+        viewport={{ once: true }}
+        whileInView={{ x: 0, opacity: 1 }}
+        initial={{ x: -15, opacity: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="container">
           <div className={styles.figures__wrapper}>
             <h2 className={styles.figures__title}>Цифры и факты</h2>
@@ -73,7 +103,7 @@ export default function HomeLayout() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
       <section className={styles.history}>
         <div className="container">
           <div className={styles.history__wrapper}>
@@ -101,3 +131,28 @@ export default function HomeLayout() {
     </>
   );
 }
+
+const heroAnimation = {
+  hidden: {
+    opacity: 0,
+    x: -15,
+  },
+  visible: (custom) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, delay: custom * 0.3 },
+  }),
+};
+
+const aboutAnimation = {
+  hidden: {
+    opacity: 0,
+    x: 15,
+  },
+
+  visible: (custom) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, delay: custom * 0.3 },
+  }),
+};

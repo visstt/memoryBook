@@ -34,34 +34,16 @@ export default function Header() {
       <div className="container">
         <div className={styles.header__wrapper}>
           <nav className={styles.nav}>
-            <MLink
-              href="/"
-              sx={directLinkStyle}
-              variants={renderElementAnimation}
-            >
-              О проекте
-            </MLink>
-            <MLink
-              href="/book"
-              sx={directLinkStyle}
-              variants={renderElementAnimation}
-            >
-              Книга памяти
-            </MLink>
-            <MLink
-              href="/map"
-              sx={directLinkStyle}
-              variants={renderElementAnimation}
-            >
-              Интерактивная карта
-            </MLink>
-            <MLink
-              href="/about"
-              sx={directLinkStyle}
-              variants={renderElementAnimation}
-            >
-              Контакты
-            </MLink>
+            {links.map(({ href, label }, index) => (
+              <MLink
+                href={href}
+                sx={directLinkStyle}
+                custom={index + 1}
+                variants={renderElementAnimation}
+              >
+                {label}
+              </MLink>
+            ))}
           </nav>
 
           <div className={styles.tablet_group}>

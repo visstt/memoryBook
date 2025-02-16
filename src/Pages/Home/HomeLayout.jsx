@@ -1,10 +1,14 @@
 import React from "react";
 import styles from "./HomeLayout.module.css";
-import CountBox from "./HomeComponents/CountBox";
+import CountBox from "./HomeComponents/CountBox/CountBox";
 import { figuresAndFacts, historyInfo } from "./constants/constants";
 import HistoryCard from "./HomeComponents/HistoryCard/HistoryCard";
 import { motion } from "motion/react";
-import { buttonAnimation } from "../../global/constants/constants";
+import {
+  buttonAnimation,
+  sliderImages,
+} from "../../global/constants/constants";
+import Slider from "../../global/Slider/Slider";
 
 export default function HomeLayout() {
   return (
@@ -32,7 +36,7 @@ export default function HomeLayout() {
       <section className={styles.about}>
         <div className="container">
           <div className={styles.about__wrapper}>
-            <img src="/Group 53.png" alt="" className={styles.about__image} />
+            <Slider images={sliderImages} />
             <div className={styles.about__info}>
               <h2 className={styles.about__title}>О проекте</h2>
               <p className={styles.about__subtitle}>

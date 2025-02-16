@@ -3,7 +3,7 @@ import useAuthStore from "../../store/authStore";
 import styles from "./Auth.module.css";
 import { Container } from "@mui/material";
 import { Link } from "react-router-dom";
-import ActivePeople from "../../../public/icons/logoActivePeople.svg";
+import login from "../../../public/icons/login.svg";
 
 export default function Registration() {
   const {
@@ -88,13 +88,11 @@ export default function Registration() {
       </p>
       {/* <b className={styles.chose}>Или</b> */}
 
-      <div className={styles.active_people}>
-        <img src={ActivePeople} alt="ActivePeople" />
-        <div className={styles.text_container}>
-          <h3>Активный гражданин</h3>
-          <h3 className={styles.thin}>Оренбургской области</h3>
+      <Link to="https://lk.orb.ru/oauth/authorize?client_id=31&redirect_uri=http://hackathon-12.orb.ru/profile/login_from_rsaag&response_type=code&scope=email+auth_method&state=http://hackathon-12.orb.ru">
+        <div className={styles.active_people}>
+          <img src={login} alt="ActivePeople" />
         </div>
-      </div>
+      </Link>
     </Container>
   );
 }

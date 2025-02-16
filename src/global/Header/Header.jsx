@@ -44,7 +44,7 @@ export default function Header() {
               Интерактивная карта
             </MLink>
             <MLink
-              href="/"
+              href="/about"
               sx={directLinkStyle}
               variants={renderElementAnimation}
             >

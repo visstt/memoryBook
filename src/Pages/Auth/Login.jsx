@@ -60,9 +60,11 @@ export default function Login() {
           }}
         />
 
-        <button type="submit" className={styles.submit_button}>
-          Войти
-        </button>
+        <Link to="/profile">
+          <button type="submit" className={styles.submit_button}>
+            Войти
+          </button>
+        </Link>
       </form>
       <p className={styles.reg_description}>
         Еще нет аккаунта? <Link to="/registration">Зарегистрироваться</Link>

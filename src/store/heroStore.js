@@ -50,6 +50,14 @@ const useHeroStore = create((set, get) => ({
       console.log(error);
     }
   },
+  getHeroById: async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/hero/${id}`);
+      set({ hero: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  },
 }));
 
 export default useHeroStore;

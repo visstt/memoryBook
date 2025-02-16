@@ -19,7 +19,7 @@ import { useParams } from "react-router-dom";
 
 const LeftbarFilter = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { getFilter, filters } = useHeroStore();
+  const { getFilter, filters, getHero } = useHeroStore();
   const [selectedValues, setSelectedValues] = useState({});
   const { id } = useParams();
   const category_id = id;
@@ -62,20 +62,25 @@ const LeftbarFilter = () => {
   // Применение фильтров
   const handleApplyFilters = async () => {
     const filterData = {
-      ...selectedValues,
+      n_raion: selectedValues["n_raion"] || [], // Предполагается, что n_raion - это ключ в selectedValues
+      kontrakt: selectedValues["kontrakt"] || [], // Предполагается, что kontrakt - это ключ в selectedValues
     };
+
     console.log("Applied Filters:", filterData);
-    // Здесь можно вызвать функцию для отправки фильтров на сервер
+
+    // Вызов getHero с параметрами фильтров
+    await getHero(filterData.n_raion.join(","), filterData.kontrakt.join(","));
   };
 
   // Сброс фильтров
-  const handleResetFilters = () => {
+  const handleResetFilters = async () => {
     const resetSelectedValues = {};
     Object.keys(filters).forEach((key) => {
       resetSelectedValues[key] = [];
     });
     setSelectedValues(resetSelectedValues);
     console.log("Filters Reset");
+    await getHero();
     // Здесь можно вызвать функцию для сброса фильтров на сервере
   };
 
@@ -126,7 +131,7 @@ const LeftbarFilter = () => {
                   defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>{filterKey}</Typography>
+                    <Typography>{filterKey} </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     {filters[filterKey].map((value) => (
@@ -135,8 +140,8 @@ const LeftbarFilter = () => {
                         control={
                           <Checkbox
                             sx={{
-                              color: "#00B3A4",
-                              "&.Mui-checked": { color: "#00B3A4" },
+                              color: "#E01D04",
+                              "&.Mui-checked": { color: "#E01D04" },
                             }}
                             checked={selectedValues[filterKey]?.includes(value)}
                             onChange={(e) =>

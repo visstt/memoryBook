@@ -13,6 +13,16 @@
   height: 500px;
   padding: 10px;
 }
+.info_form2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background-color: #fff;
+  width: 400px;
+  padding: 10px;
+}
 .input_form {
   width: 350px;
   height: 52px;
@@ -44,4 +54,10 @@
 .profile_cards {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 1010px) {
+  .wrapper {
+    flex-direction: column;
+  }
 }

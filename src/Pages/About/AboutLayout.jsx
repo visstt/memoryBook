@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./AboutLayout.module.css";
 import { motion } from "motion/react";
 import { buttonAnimation } from "../../global/constants/constants";
-import { img } from "motion/react-client";
+import Slider from "../../global/Slider/Slider";
+import { sliderImages } from "../../global/constants/constants";
 
 const sources = [
   {
@@ -65,7 +66,7 @@ export default function AboutLayout() {
       <section className={styles.about}>
         <div className="container">
           <div className={styles.about__wrapper}>
-            <img src="/Group 53.png" alt="" className={styles.about__image} />
+            <Slider images={sliderImages} />
             <div className={styles.about__info}>
               <h2 className={styles.about__title}>Кому посвящен проект</h2>
               <p className={styles.about__subtitle}>

@@ -5,8 +5,8 @@ console.log(url);
 // Data
 export const links = [
   { href: "/", label: "О проекте" },
-  { href: "/", label: "Книга памяти" },
-  { href: "/", label: "Интерактивная карта" },
+  { href: "/book", label: "Книга памяти" },
+  { href: "/map", label: "Интерактивная карта" },
   { href: "/", label: "Контакты" },
 ];
 
@@ -19,6 +19,12 @@ export const networks = [
     href: "",
     icon: "/public/icons/tg.svg",
   },
+];
+
+export const sliderImages = [
+  "/public/slider.png",
+  "/public/slider2.jpg",
+  "/public/slider3.jpg",
 ];
 
 // Styles

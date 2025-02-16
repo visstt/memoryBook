@@ -30,8 +30,8 @@ export default function BookCards() {
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 4, md: 4 }}
         >
-          {hero && hero.data && hero.data.length > 0 ? (
-            hero.data.map((item) => (
+          {hero && hero.length > 0 ? (
+            hero.map((item) => (
               <Grid2 item key={item.id} xs={6} sm={4} md={3}>
                 <Card
                   sx={{

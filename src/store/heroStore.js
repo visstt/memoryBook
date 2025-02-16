@@ -27,6 +27,29 @@ const useHeroStore = create((set, get) => ({
       );
     }
   },
+  filters: [],
+  getFilter: async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/hero/getFilters`);
+      set({ filters: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  hero: [],
+  getHero: async (n_raion, kontrakt) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/hero`, {
+        params: {
+          n_raion: n_raion,
+          kontrakt: kontrakt,
+        },
+      });
+      set({ hero: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  },
 }));
 
 export default useHeroStore;

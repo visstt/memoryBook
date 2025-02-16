@@ -4,109 +4,79 @@ import {
   Button,
   Drawer,
   IconButton,
-  Slider,
   Typography,
   FormControlLabel,
   Checkbox,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  TextField,
-  styled,
 } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import CloseIcon from "@mui/icons-material/Close";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-// import useFilterStore from "../../../store/filterStore";
+import useHeroStore from "../../../store/heroStore";
 import { useParams } from "react-router-dom";
-// import useProductStore from "../../../store/productStore";
-
-const CustomTextField = styled(TextField)({
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "#26BDB8",
-    },
-    "&:hover fieldset": {
-      borderColor: "#26BDB8",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#26BDB8",
-    },
-  },
-});
 
 const LeftbarFilter = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
-  //   const { fetchFilter, filters } = useFilterStore();
-  //   const { fetchProducts } = useProductStore();
-  const [selectedValues, setSelectedValues] = useState([]);
+  const { getFilter, filters } = useHeroStore();
+  const [selectedValues, setSelectedValues] = useState({});
   const { id } = useParams();
   const category_id = id;
 
-  //   useEffect(() => {
-  //     fetchFilter(category_id);
-  //   }, [category_id]);
+  useEffect(() => {
+    getFilter();
+  }, []);
 
-  //   useEffect(() => {
-  //     if (drawerOpen && filters && filters.data && filters.data.characteristics) {
-  //       const initialCharacteristics = filters.data.characteristics.map(
-  //         (filter) => ({
-  //           characteristic_id: filter.id,
-  //           values: [],
-  //         })
-  //       );
-  //       setSelectedValues(initialCharacteristics);
-  //     }
-  //   }, [drawerOpen, filters]);
+  // Инициализация выбранных значений
+  useEffect(() => {
+    if (drawerOpen && filters) {
+      const initialSelectedValues = {};
+      Object.keys(filters).forEach((key) => {
+        initialSelectedValues[key] = [];
+      });
+      setSelectedValues(initialSelectedValues);
+    }
+  }, [drawerOpen, filters]);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
 
-  const handleChangeCheckbox = (event, characteristicId, value) => {
-    const updatedSelectedValues = [...selectedValues];
-    const index = updatedSelectedValues.findIndex(
-      (item) => item.characteristic_id === characteristicId
-    );
-
-    if (index !== -1) {
-      const currentCharacteristic = updatedSelectedValues[index];
-      if (event.target.checked) {
-        currentCharacteristic.values.push(value);
-      } else {
-        currentCharacteristic.values = currentCharacteristic.values.filter(
-          (v) => v !== value
-        );
-      }
-      setSelectedValues(updatedSelectedValues);
+  // Обработка изменения чекбокса
+  const handleChangeCheckbox = (event, filterKey, value) => {
+    const updatedSelectedValues = { ...selectedValues };
+    if (event.target.checked) {
+      updatedSelectedValues[filterKey] = [
+        ...(updatedSelectedValues[filterKey] || []),
+        value,
+      ];
+    } else {
+      updatedSelectedValues[filterKey] = updatedSelectedValues[
+        filterKey
+      ].filter((v) => v !== value);
     }
+    setSelectedValues(updatedSelectedValues);
   };
 
+  // Применение фильтров
   const handleApplyFilters = async () => {
     const filterData = {
-      price: {
-        min: minPrice,
-        max: maxPrice,
-      },
-      characteristics: selectedValues
-        .filter((characteristic) => characteristic.values.length > 0)
-        .map((characteristic) => ({
-          characteristic_id: characteristic.characteristic_id,
-          values: characteristic.values.map((value) => value.toString()),
-        })),
+      ...selectedValues,
     };
-
-    const jsonData = JSON.stringify(filterData);
-    fetchProducts(category_id, jsonData);
+    console.log("Applied Filters:", filterData);
+    // Здесь можно вызвать функцию для отправки фильтров на сервер
   };
 
+  // Сброс фильтров
   const handleResetFilters = () => {
-    setSelectedValues([]);
-    setMinPrice(0);
-    setMaxPrice(0);
-    fetchProducts(category_id, null);
+    const resetSelectedValues = {};
+    Object.keys(filters).forEach((key) => {
+      resetSelectedValues[key] = [];
+    });
+    setSelectedValues(resetSelectedValues);
+    console.log("Filters Reset");
+    // Здесь можно вызвать функцию для сброса фильтров на сервере
   };
 
   return (
@@ -144,72 +114,37 @@ const LeftbarFilter = () => {
           >
             <CloseIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", color: "#000" }}
-          >
+          <Typography variant="h6" sx={{ fontWeight: "bold", color: "#000" }}>
             Фильтрация
           </Typography>
           <Box sx={{ mt: 2 }}>
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="body">Цена</Typography>
-            </Box>
-            {/* <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                gridGap: "20px",
-              }}
-            >
-              <CustomTextField
-                variant="outlined"
-                placeholder="От"
-                onChange={(e) => setMinPrice(Number(e.target.value))}
-                sx={{ width: "48%", mt: 2, color: "#00B3A4" }}
-              />
-              <CustomTextField
-                variant="outlined"
-                placeholder="До"
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                sx={{ width: "48%", mt: 2, color: "#00B3A4" }}
-              />
-            </Box> */}
-            {/* {filters &&
-            filters.data &&
-            filters.data.characteristics &&
-            filters.data.characteristics.length > 0 ? (
-              filters.data.characteristics.map((char) => (
-                <Accordion sx={{ mt: 2, mb: 2 }} key={char.id} defaultExpanded>
+            {filters && Object.keys(filters).length > 0 ? (
+              Object.keys(filters).map((filterKey) => (
+                <Accordion
+                  sx={{ mt: 2, mb: 2 }}
+                  key={filterKey}
+                  defaultExpanded
+                >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>{char.name}</Typography>
+                    <Typography>{filterKey}</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    {char.values.map((value) => (
+                    {filters[filterKey].map((value) => (
                       <FormControlLabel
-                        key={`${char.id}-${value}`}
+                        key={`${filterKey}-${value}`}
                         control={
                           <Checkbox
                             sx={{
                               color: "#00B3A4",
                               "&.Mui-checked": { color: "#00B3A4" },
                             }}
-                            checked={selectedValues.some(
-                              (c) =>
-                                c.characteristic_id === char.id &&
-                                c.values.includes(value)
-                            )}
+                            checked={selectedValues[filterKey]?.includes(value)}
                             onChange={(e) =>
-                              handleChangeCheckbox(e, char.id, value)
+                              handleChangeCheckbox(e, filterKey, value)
                             }
                           />
                         }
-                        label={
-                          typeof value === "boolean" ? (
-                            <>{value ? "Есть" : "Нету"}</>
-                          ) : (
-                            value
-                          )
-                        }
+                        label={value}
                       />
                     ))}
                   </AccordionDetails>
@@ -217,7 +152,7 @@ const LeftbarFilter = () => {
               ))
             ) : (
               <Typography>Нет доступных фильтров</Typography>
-            )} */}
+            )}
           </Box>
           <Box
             sx={{

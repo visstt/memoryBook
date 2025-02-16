@@ -1,27 +1,15 @@
-// import React from "react";
-
-// export default function Map() {
-//   return (
-//     <div style={{ width: "100%", height: "100vh" }}>
-//       <iframe
-//         src="https://geois2.orb.ru/resource/8909/display?panel=layers"
-//         width="100%"
-//         height="100%"
-//         style={{ border: "none" }}
-//         title="NextGIS Web Map"
-//       />
-//     </div>
-//   );
-// }
-
 import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import proj4 from "proj4"; // Импортируем proj4 для преобразования координат
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close"; // Иконка для закрытия сайдбара
 
 export default function Map() {
   const mapContainer = useRef(null);
   const [data, setData] = useState([]);
+  const [selectedFeature, setSelectedFeature] = useState(null); // Состояние для выбранного маркера
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Состояние для открытия/закрытия сайдбара
   const mapRef = useRef(null); // Ссылка на объект карты
 
   // Определяем проекции для преобразования координат
@@ -105,18 +93,11 @@ export default function Map() {
           // Создание маркера
           const marker = L.marker([lat, lng]).addTo(map);
 
-          // Создание popup с информацией
-          const popupContent = `
-            <b>${feature.fields.fio}</b><br>
-            <b>Район:</b> ${feature.fields.n_raion}<br>
-            <b>Годы:</b> ${feature.fields.years}<br>
-            <b>Информация:</b> ${feature.fields.info}<br>
-            <b>Контракт:</b> ${feature.fields.kontrakt}<br>
-            <b>Награды:</b> ${feature.fields.nagrads}<br>
-          `;
-
-          // Добавление popup к маркеру
-          marker.bindPopup(popupContent);
+          // Обработчик клика на маркер
+          marker.on("click", () => {
+            setSelectedFeature(feature); // Обновляем состояние выбранного маркера
+            setIsSidebarOpen(true); // Открываем сайдбар
+          });
         } else {
           console.error("Не удалось распарсить координаты:", wkt); // Отладка: ошибка парсинга
         }
@@ -124,7 +105,143 @@ export default function Map() {
     }
   }, [data]);
 
+  // Закрытие сайдбара
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+    setSelectedFeature(null);
+  };
+
   return (
-    <div ref={mapContainer} style={{ width: "100%", height: "100vh" }}></div>
+    <div style={{ display: "flex", width: "100%", height: "100vh" }}>
+      {/* Сайдбар для отображения информации */}
+      <div
+        style={{
+          width: isSidebarOpen ? "300px" : "0", // Ширина сайдбара
+          height: "100vh",
+          overflowY: "auto",
+          padding: isSidebarOpen ? "10px" : "0", // Отступы только при открытом сайдбаре
+          backgroundColor: "#f0f0f0",
+          borderRight: "1px solid #ccc",
+          transition: "width 0.3s, padding 0.3s", // Анимация открытия/закрытия
+          position: "relative", // Для позиционирования кнопки закрытия
+        }}
+      >
+        {isSidebarOpen && (
+          <>
+            {/* Кнопка закрытия сайдбара (видна только на мобильных устройствах) */}
+            <IconButton
+              onClick={closeSidebar}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                display: { xs: "block", sm: "none" }, // Видна только на мобильных
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+
+            {selectedFeature ? (
+              <table
+                style={{
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  marginTop: "20px",
+                }}
+              >
+                <tbody>
+                  <tr>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      <b>ФИО:</b>
+                    </td>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      {selectedFeature.fields.fio}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      <b>Район:</b>
+                    </td>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      {selectedFeature.fields.n_raion}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      <b>Годы:</b>
+                    </td>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      {selectedFeature.fields.years}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      <b>Информация:</b>
+                    </td>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      {selectedFeature.fields.info}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      <b>Контракт:</b>
+                    </td>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      {selectedFeature.fields.kontrakt}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      <b>Награды:</b>
+                    </td>
+                    <td
+                      style={{ padding: "8px", borderBottom: "1px solid #ddd" }}
+                    >
+                      {selectedFeature.fields.nagrads}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) : (
+              <p>Выберите маркер на карте, чтобы увидеть информацию.</p>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* Контейнер для карты */}
+      <div
+        ref={mapContainer}
+        style={{
+          flex: 1,
+          height: "100vh",
+          width: "100%",
+          transition: "margin 0.3s",
+          marginLeft: isSidebarOpen ? "0" : "0", // Сдвиг карты при открытии сайдбара
+        }}
+      ></div>
+    </div>
   );
 }

@@ -24,6 +24,7 @@ export default function Header() {
           <nav className={styles.nav}>
             {links.map(({ href, label }, index) => (
               <MLink
+              key={index}
                 href={href}
                 sx={directLinkStyle}
                 custom={index + 1}

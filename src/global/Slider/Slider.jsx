@@ -1,10 +1,7 @@
 import { useState } from "react";
 import styles from "./Slider.module.css";
-import { img } from "motion/react-client";
 
-
-
-export default function Slider({images}) {
+export default function Slider({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () =>
@@ -28,9 +25,8 @@ export default function Slider({images}) {
       </div>
       <button
         className={`${styles.button} ${styles.button__left}`}
-        onClick={nextSlide}
+        onClick={prevSlide}
       >
-        {" "}
         <img src="/public/icons/Arrow_Left_LG.svg" alt="" />
       </button>
       <button

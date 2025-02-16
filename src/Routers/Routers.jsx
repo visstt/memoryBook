@@ -8,6 +8,7 @@ import ProfileLayout from "../Pages/Profile/ProfileLayout";
 import Page from "../Pages/page/Page";
 import Map from "../Pages/Map/Map";
 import AddSoldier from "../Pages/Admin/AddsSoldier/AddSoldier";
+import AboutLayout from "../Pages/About/AboutLayout";
 
 // const UsersRoute = ({ children }) => {
 //   const isLoggedIn = Cookies.get("logged_in") === "true";
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
     path: "/addsoldier",
     element: <AddSoldier />,
   },
+  {
+    path: "/about", // динамический маршрут
+    element: <AboutLayout />, // Исправлено имя компонента
+  },
   //   {
   //     path: "/catalog",
   //     element: <СategoriesPage />,
@@ -101,10 +106,6 @@ export const router = createBrowserRouter([
   //   {
   //     path: "/delivery", // динамический маршрут
   //     element: <Delivery />, // Исправлено имя компонента
-  //   },
-  //   {
-  //     path: "/about", // динамический маршрут
-  //     element: <About />, // Исправлено имя компонента
   //   },
   //   {
   //     path: "/returnpolicy", // динамический маршрут

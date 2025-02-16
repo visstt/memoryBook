@@ -53,7 +53,7 @@ export default function HomeLayout() {
         className={styles.about}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount:.7 }}
+        viewport={{ once: true, amount: 0.7 }}
       >
         <div className="container">
           <div className={styles.about__wrapper}>
@@ -78,7 +78,13 @@ export default function HomeLayout() {
           </div>
         </div>
       </motion.section>
-      <section className={styles.figures}>
+      <motion.section
+        className={styles.figures}
+        viewport={{ once: true }}
+        whileInView={{ x: 0, opacity: 1 }}
+        initial={{ x: -15, opacity: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="container">
           <div className={styles.figures__wrapper}>
             <h2 className={styles.figures__title}>Цифры и факты</h2>
@@ -97,7 +103,7 @@ export default function HomeLayout() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
       <section className={styles.history}>
         <div className="container">
           <div className={styles.history__wrapper}>

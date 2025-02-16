@@ -35,6 +35,7 @@ const useHeroStore = create((set, get) => ({
           formData,
         }
       );
+
       console.log("Успешное добавление солдата:", response.data);
     } catch (error) {
       console.log(
@@ -59,6 +60,18 @@ const useHeroStore = create((set, get) => ({
         params: {
           n_raion: n_raion,
           kontrakt: kontrakt,
+        },
+      });
+      set({ hero: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getHeroSearch: async (searchQuery) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/hero/search`, {
+        params: {
+          fio: searchQuery,
         },
       });
       set({ hero: response.data });

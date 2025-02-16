@@ -35,7 +35,7 @@ export default function BookCards() {
               <Grid2 item key={item.id} xs={6} sm={4} md={3}>
                 <Card
                   sx={{
-                    maxWidth: "100%",
+                    width: "1200px",
                     background: "#F5FCFF",
                     borderRadius: "0px",
                     border: "none",

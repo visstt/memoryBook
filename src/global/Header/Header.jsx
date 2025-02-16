@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import BurgerButton from "./HeaderComponents/BurgerButton";
-import { duration, Link } from "@mui/material";
-import { renderElementAnimation } from "./constants/constants";
+import { Link } from "@mui/material";
+import { motion } from "framer-motion";
+import useHeroStore from "../../store/heroStore";
 import { directLinkStyle, links } from "../constants/constants";
-import { motion } from "motion/react";
+import { renderElementAnimation } from "./constants/constants";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const isMobile = window.innerWidth <= 1024;
+  const { getHeroSearch } = useHeroStore();
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      const results = await getHeroSearch(searchQuery);
+      setSearchResults(results);
+    }
+  };
 
   return (
     <motion.header
@@ -37,7 +49,7 @@ export default function Header() {
 
           <div className={styles.tablet_group}>
             <motion.form
-              onSubmit={() => {}}
+              onSubmit={handleSearch}
               className={styles.search_form}
               custom={5}
               variants={renderElementAnimation}
@@ -50,6 +62,8 @@ export default function Header() {
                 type="text"
                 placeholder="Поиск"
                 className={styles.search_form__input}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </motion.form>
             <MLink
@@ -93,8 +107,20 @@ export default function Header() {
           )}
         </div>
       </div>
+
+      {/* Отображение результатов поиска */}
+      {searchResults.length > 0 && (
+        <div className={styles.search_results}>
+          {searchResults.map((result) => (
+            <div key={result.id} className={styles.search_result_item}>
+              <h3>{result.fields.fio}</h3>
+              <p>{result.fields.info}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </motion.header>
   );
 }
 
-const MLink = motion.create(Link);
+const MLink = motion(Link);

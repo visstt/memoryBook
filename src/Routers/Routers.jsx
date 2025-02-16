@@ -9,6 +9,7 @@ import Page from "../Pages/page/Page";
 import Map from "../Pages/Map/Map";
 import AddSoldier from "../Pages/Admin/AddsSoldier/AddSoldier";
 import AboutLayout from "../Pages/About/AboutLayout";
+import Adminlayout from "../Pages/Admin/Adminlayout";
 
 // const UsersRoute = ({ children }) => {
 //   const isLoggedIn = Cookies.get("logged_in") === "true";
@@ -86,6 +87,10 @@ export const router = createBrowserRouter([
   {
     path: "/about", // динамический маршрут
     element: <AboutLayout />, // Исправлено имя компонента
+  },
+  {
+    path: "/admin", // динамический маршрут
+    element: <Adminlayout />, // Исправлено имя компонента
   },
   //   {
   //     path: "/catalog",

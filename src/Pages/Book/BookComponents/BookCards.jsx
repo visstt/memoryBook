@@ -121,6 +121,9 @@ export default function BookCards() {
                             fontSize: "20px",
                           }}
                           variant="contained"
+                          onClick={() => {
+                            window.location.href = `/page/${item.id}`;
+                          }}
                         >
                           Подробнее
                         </Button>
